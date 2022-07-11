@@ -56,7 +56,7 @@ resource "aws_route_table_association" "public" {
 }
 
 resource "aws_eip" "nat_ips" {
-  count = 1
+  count = var.count_nat
   vpc   = true
 
   tags = {
@@ -65,7 +65,7 @@ resource "aws_eip" "nat_ips" {
 }
 
 resource "aws_nat_gateway" "k8s_nat" {
-  count         = 1
+  count         = var.count_nat
   allocation_id = var.nat_ips[count.index]
   subnet_id     = var.public_subnets[count.index]
 }

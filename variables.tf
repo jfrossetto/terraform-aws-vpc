@@ -15,3 +15,5 @@ variable "nat_ips" {
 variable "nat_gateway" {
   type = list(string)
 }
+
+variable "count_nat" {}
