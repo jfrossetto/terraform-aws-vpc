@@ -28,7 +28,8 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "public-subnet-${count.index + 1}"
+    Name                             = "public-subnet-${count.index + 1}"
+    "kubernetes.io/cluster/kuberdev" = "owned"
   }
 }
 
@@ -71,7 +72,7 @@ resource "aws_nat_gateway" "k8s_nat" {
 }
 
 resource "aws_route_table" "private_routes" {
-  count = length(var.private_subnets)
+  count      = length(var.private_subnets)
   vpc_id     = aws_vpc.k8s.id
   depends_on = [aws_nat_gateway.k8s_nat]
 
